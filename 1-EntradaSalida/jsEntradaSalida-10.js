@@ -1,4 +1,5 @@
-/*
+/* AUTOR: TEDESCO LAUTARO
+   EJERCICIO:E/S 10
 Debemos lograr tomar el importe por ID.
 Transformarlo a entero (parseInt), luego
 mostrar el importe con un Descuento del 25 %
@@ -19,8 +20,10 @@ function mostrarAumento()
 }
 
 
-/*
+/* 
+{
 //EJERCICIO 10 BIS//
+function mostrarAumento()
 	var sueldo;
 	var descuento;
 	var resultado;
@@ -35,4 +38,5 @@ function mostrarAumento()
 	resultado=(sueldo-descuento);
 
 	(document.getElementById("txtIdResultado").value)=resultado;
+	}
 	*/

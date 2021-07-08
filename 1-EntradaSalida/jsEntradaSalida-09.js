@@ -1,4 +1,5 @@
-/*
+/* AUTOR:TEDESCO LAUTARO
+   EJERCICIO: E/S 9
 Debemos lograr tomar el importe por ID ,
 transformarlo a entero (parseInt), luego
 mostrar el importe con un aumento del 10 %
@@ -23,7 +24,9 @@ function mostrarAumento()
 
 
 /*
-//EJERCICIO 9 BIS	
+  AUTOR:TEDESCO LAUTARO
+  EJERCICIO: E/S 9BIS
+	
 function mostrarAumento()
 {
 	var sueldo;
