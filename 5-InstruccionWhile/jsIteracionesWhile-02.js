@@ -14,7 +14,7 @@ function mostrar()
 	
 	while(contadorDeVueltas>0)
 	{
-		console.log("Su numero es " + contadorDeVueltas);
+		alert("Su numero es " + contadorDeVueltas);
 		contadorDeVueltas=contadorDeVueltas-1; 
 		
 	}

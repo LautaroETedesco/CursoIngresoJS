@@ -11,7 +11,7 @@ function mostrar()
 	var clave;
 	clave=prompt("ingrese clave");
 
-	while(clave!="utn750"
+	while(clave!="utn750")
 	{
 		clave=prompt("error ,ingrese clave");
 	}

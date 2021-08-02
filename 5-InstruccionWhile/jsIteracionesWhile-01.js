@@ -12,10 +12,10 @@ function mostrar()
 
 	contadorDeVueltas=0;
 	while(contadorDeVueltas<10)
-	{
-		
+	{	
 		contadorDeVueltas=contadorDeVueltas+1;
-		console.log("Su numero es " + contadorDeVueltas);
+		alert("Su numero es " + contadorDeVueltas);
+		
 	}
 	 
 	
