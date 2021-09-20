@@ -1,185 +1,138 @@
-/*Enunciado:
+/*
+Enunciado:
 
-Debemos realizar la carga de 5(cinco) productos de prevención de contagio,
-de cada una debo obtener los siguientes datos:
-el tipo (validar "barbijo" , "jabón" o "alcohol") ,
-el precio (validar entre 100 y 300),
-la cantidad de unidades (no puede ser 0 o negativo y no debe superar las 1000 unidades),
-la Marca y el fabricante.
-Se debe Informar al usuario lo siguiente:
-a) Del más barato de los alcohol, la cantidad de unidades y el fabricante
-b) Del tipo con mas unidades, el promedio por compra
-c) Cuántas unidades de jabones hay en total
+EJERCICIO 1
+Para una veterinaria se necesita un programa que permita ingresar datos de perros con su
+precio de vacunación a pagar hasta que el cliente quiera.
+Por cada perro, se ingresa:
+* raza: (validar "sharpei", "galgo", "pastor").
+* nombre,
+* edad (entre 1 y 25),
+* peso (mas de 0),
+* precio de consulta (desde 500 hasta 1500).
+
+Si se vacunan más de 2 perros, se obtiene un 20% de descuento sobre el total a pagar.
+Si se vacunan más de 4 perros, se obtiene un 30% de descuento sobre el total a pagar.
+Se pide informar por alert:
+a)El importe total a pagar por las vacunaciones, sin descuento.
+b)El importe total a pagar con descuento (solo si corresponde)
+c)La raza con más cantidad de perros
+d)Nombre, raza y edad del perro más viejo ingresado
 */
 
-//AUTOR: LAUTARO TEDESCO
-//EJERCICIO: PARCIAL 1 2020
-
-//Signo mayor >
-//Signo menor <
-
+//ALUMNO TEDESCO LAUTARO
+//PARCIAL 2021 1
 function mostrar() {
-
-	var tipo;
+	var respuesta = "si";
+	var raza;
+	var nombre;
+	var edad;
+	var peso;
 	var precio;
-	var cantidadUnidades;
-	var marca;
-	var fabricante;
-	var contador;
-	var bandera;
-	var alcoholMasBarato;
-	var alcoholMasBaratoUnidades;
-	var alcoholMasBaratoFabricante;
-	var mensaje;
-	var cantidadUnidadesAlcohol;
-	var cantidadUnidadesBarbijo;
-	var cantidadUnidadesJabon;
-	var contadorAlcohol;
-	var contadorJabon;
-	var contadorBarbijo;
-	var promedio;
-	var mensaje2;
-	var tipoConMasUnidades;
-	var mensaje3;
+	var precioBruto = 0;
+	var contadorPerros = 0;
+	var porcentajeDescuento;
+	var precioNeto = 0;
+	var banderaPrecioDescuento = true;
+	var contadorSharpei = 0;
+	var contadorGalgo = 0;
+	var contadorPastor = 0;
+	var razaConMasCantidad;
+	var edadPerroMasViejo;
+	var nombrePerroMasViejo;
+	var razaPerroMasViejo;
+	var banderaPerroMasViejo=true;
+
+	while (respuesta == "si") {
+		raza = prompt("Ingrese la raza del perro");
+		while (raza != "sharpei" && raza != "galgo" && raza != "pastor") {
+			raza = prompt("Error, Ingrese la raza del perro (sharpei o galgo o pastor)");
+		}
+		nombre = prompt("Ingrese el nombre del  perro");
+		edad = prompt("Ingrese la edad del perro");
+		edad = parseInt(edad);
+		while (edad < 0 || edad > 26) {
+			edad = prompt("Error, Ingrese la edad del perro");
+			edad = parseInt(edad);
+		}
+		peso = prompt("Ingrese el peso del perro");
+		peso = parseInt(peso);
+		while (peso < 0) {
+			peso = prompt("Error, Ingrese el peso del perro");
+			peso = parseInt(peso);
+		}
+		precio = prompt("Ingrese el precio de la consulta");
+		precio = parseInt(precio);
+		while (precio < 500 || precio > 1500) {
+			precio = prompt("Error, Ingrese el precio de la consulta");
+			precio = parseInt(precio);
+		}
+
+		respuesta = prompt("Desea continuar?")
+		contadorPerros = contadorPerros + 1;
+		precioBruto = precioBruto + precio
+		switch (raza) {
+			case "sharpei":
+				contadorSharpei = contadorSharpei + 1;
+				break;
+			case "galgo":
+				contadorGalgo = contadorGalgo + 1;
+				break;
+			case "pastor":
+				contadorPastor = contadorPastor + 1;
+				break;
+		}
+
+		if(edad>0 && banderaPerroMasViejo==true)
+		{
+			banderaPerroMasViejo=false;
+			edadPerroMasViejo=edad;
+			nombrePerroMasViejo=nombre;
+			razaPerroMasViejo=raza;
+
+		}else{
+			if(edadPerroMasViejo<edad)
+			{
+				edadPerroMasViejo=edad;
+				nombrePerroMasViejo=nombre;
+				razaPerroMasViejo=raza;
+			}
+		}
+	}
+
+	if (contadorPerros > 2 && contadorPerros < 4) {
+		porcentajeDescuento = precioBruto * 20 / 100;
+		precioNeto = precioBruto - porcentajeDescuento;
+		banderaPrecioDescuento = false;
+	} else {
+		if (contadorPerros > 4) {
+			porcentajeDescuento = precioBruto * 30 / 100;
+			precioNeto = precioBruto - porcentajeDescuento;
+			banderaPrecioDescuento = false;
+		}
+	}
+
+	if (contadorPastor > contadorGalgo && contadorPastor > contadorSharpei) {
+		razaConMasCantidad = "Pastor";
+	} else {
+		if (contadorSharpei > contadorGalgo && contadorSharpei > contadorPastor) {
+			razaConMasCantidad = "Sharpei";
+		} else {
+			if (contadorGalgo > contadorSharpei && contadorGalgo > contadorPastor) {
+				razaConMasCantidad = "Galgo";
+			}
+		}
+	}
+
+
+
+
+	alert("El precio total sin descuento es " + precioBruto);
+	if (banderaPrecioDescuento == false) {
+		alert("El precio total con descuento es " + precioNeto);
+	}
+	alert("La raza con mas cantidad de perros es " + razaConMasCantidad );
+	alert("El nombre del perro mas viejo es " + nombrePerroMasViejo + " y la raza del perro es " + razaPerroMasViejo + " y la edad del perro es " + edadPerroMasViejo);
 	
-
-
-
-
-	contador = 0;
-	bandera = false;
-	precio = 0;
-	cantidadUnidades = 0;
-	alcoholMasBarato = 0;
-	cantidadUnidadesAlcohol = 0;
-	cantidadUnidadesBarbijo = 0;
-	cantidadUnidadesJabon = 0;
-	contadorAlcohol = 0;
-	promedio = 0;
-	contadorBarbijo = 0;
-	contadorJabon = 0;
-	
-
-
-
-	while (contador < 5) {
-		tipo = prompt("Ingrese el tipo de producto 'barbijo' 'jabon' 'alcohol'");
-		while (tipo != "barbijo" && tipo != "jabon" && tipo != "alcohol") {
-			tipo = prompt("Ingrese un producto valido 'barbijo' 'jabon' 'alcohol' ");
-		}
-
-
-		precio = parseInt(prompt("Ingrese el precio del producto 'Entre 100 y 300' "));
-		while (precio < 100 || precio > 300) {
-			precio = parseInt(prompt("Ingrese un precio valido 'Entre 100 y 300' "));
-		}
-
-
-		cantidadUnidades = parseInt(prompt("Ingrese la cantidad de unidades 'Entre 0 y 1000' "));
-		while (cantidadUnidades < 0 || cantidadUnidades > 1000) {
-			cantidadUnidades = parseInt(prompt("Ingrese una cantidad de unidades valida 'Entre 0 y 1000' "));
-		}
-
-
-		marca = prompt("Ingrese la marca del producto");
-		fabricante = prompt("Ingrese el fabricante del producto");
-		contador = contador + 1;
-
-
-
-
-
-
-
-		if (tipo == "alcohol") {
-			if (bandera == false) {
-				bandera = true
-				alcoholMasBarato = precio;
-				alcoholMasBaratoUnidades = cantidadUnidades;
-				alcoholMasBaratoFabricante = fabricante;
-			}
-			else {
-				if (precio < alcoholMasBarato) {
-					alcoholMasBarato = precio;
-					alcoholMasBaratoUnidades = cantidadUnidades;
-					alcoholMasBaratoFabricante = fabricante;
-				}
-			}
-
-
-		}
-
-
-		switch (tipo) {
-			case "alcohol":
-				cantidadUnidadesAlcohol = cantidadUnidadesAlcohol + cantidadUnidades;
-				contadorAlcohol = contadorAlcohol + 1;
-				cantidadUnidadesAlcohol=parseInt(cantidadUnidadesAlcohol);
-
-
-				break;
-			case "barbijo":
-				cantidadUnidadesBarbijo = cantidadUnidadesBarbijo + cantidadUnidades;
-				contadorBarbijo = contadorBarbijo + 1;
-				cantidadUnidadesBarbijo=parseInt(cantidadUnidadesBarbijo);
-
-				break;
-			case "jabon":
-				cantidadUnidadesJabon = cantidadUnidadesJabon + cantidadUnidades;
-				contadorJabon = contadorJabon + 1;
-				cantidadUnidadesJabon=parseInt(cantidadUnidadesJabon);
-				
-
-				break;
-		}
-
-
-
-
-
-	}
-
-	if (cantidadUnidadesAlcohol > cantidadUnidadesJabon && cantidadUnidadesAlcohol > cantidadUnidadesBarbijo) {
-
-
-		promedio = cantidadUnidadesAlcohol / contadorAlcohol;
-		tipoConMasUnidades = "alcohol"
-
-
-	}
-	else {
-		if (cantidadUnidadesJabon > cantidadUnidadesAlcohol && cantidadUnidadesJabon > cantidadUnidadesBarbijo) {
-
-
-			promedio = cantidadUnidadesJabon / contadorJabon;
-			tipoConMasUnidades = "jabon"
-
-
-		}
-		else {
-			if (cantidadUnidadesBarbijo > cantidadUnidadesAlcohol && cantidadUnidadesBarbijo > cantidadUnidadesJabon) {
-
-
-				promedio = cantidadUnidadesBarbijo / contadorBarbijo;
-				tipoConMasUnidades = "Barbijo"
-
-
-			}
-		}
-	}
-
-
-
-
-
-	mensaje = "El precio del alcohol mas barato es $" + alcoholMasBarato + " y son " + alcoholMasBaratoUnidades + " unidades y el fabricante es " + alcoholMasBaratoFabricante;
-	mensaje2 = "El tipo con mas unidades es " + tipoConMasUnidades + " y el promedio por compra es " + promedio;
-	mensaje3 = "La suma total de unidades de jabon es " + cantidadUnidadesJabon;
-	alert(mensaje);
-	alert(mensaje2);
-	alert(mensaje3);
-
 
 }
-
-
